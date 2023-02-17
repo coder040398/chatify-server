@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
@@ -8,6 +9,7 @@ import entities from './utils/typeorms';
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env.development' }),
+    PassportModule.register({ session: true }),
     AuthModule,
     UsersModule,
     TypeOrmModule.forRoot({

@@ -1,3 +1,5 @@
+import { VailidateUserDetails } from 'src/utils/types';
+
 export interface IAuthService {
-  validateUser();
+  validateUser(userCredential: VailidateUserDetails);
 }
