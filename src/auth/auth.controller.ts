@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import { instanceToPlain } from 'class-transformer';
 import { IUserService } from 'src/users/user';
 import { Routes, Services } from 'src/utils/constants';
 import { IAuthService } from './auth';
@@ -12,9 +13,10 @@ export class AuthController {
   ) {}
 
   @Post('register')
-  registerUser(@Body() createUserDto: CreateUserDto) {
+  async registerUser(@Body() createUserDto: CreateUserDto) {
     console.log(createUserDto);
-    this.userService.createUser(createUserDto);
+    //not show password on api request, just save record to db
+    return instanceToPlain(await this.userService.createUser(createUserDto));
   }
 
   @Post('login')
