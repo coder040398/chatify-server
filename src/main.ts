@@ -11,8 +11,9 @@ import { Session } from './utils/typeorms';
 async function bootstrap() {
   const { PORT, COOKIE_SECRET } = process.env;
   const app = await NestFactory.create(AppModule);
-  const sessionRepository = getRepository(Session)
+  const sessionRepository = getRepository(Session);
   app.setGlobalPrefix('api');
+  app.enableCors({ origin: ['http://localhost:3000'], credentials: true });
   app.useGlobalPipes(new ValidationPipe());
   app.use(
     session({
@@ -20,7 +21,7 @@ async function bootstrap() {
       saveUninitialized: false,
       resave: false,
       cookie: { maxAge: 86400000 }, //cookie expire 1 day later
-      store: new TypeormStore().connect(sessionRepository)
+      store: new TypeormStore().connect(sessionRepository),
     }),
   );
 
