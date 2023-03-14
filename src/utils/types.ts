@@ -14,3 +14,9 @@ export type VailidateUserDetails = {
   email: string;
   password: string;
 };
+
+export type CreateConversationParams = {
+  authorId: number;
+  receipientId: number;
+  message: string;
+};
